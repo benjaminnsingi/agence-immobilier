@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon profile{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="mt-5">
+            {{ include('component/flash_message.html.twig') }}
+        </div>
+        <h1 class="text-center">Change photo de profile</h1>
+       <div class="text-center">
+           {% include 'fragments/current_user.html.twig' with {'width': 350, 'height': 350 }%}
+           <div class="container" id="search">
+               {{ form_start(form)}}
+               {{ form_row(form.image)}}
+               {{ form_end(form)}}
+           </div>
+       </div>
+    </div>
+{% endblock %}

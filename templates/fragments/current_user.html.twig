@@ -1,0 +1,7 @@
+<img
+        class="rounded-circle"
+        width="{{ width }}"
+        height="{{ height }}"
+        src="{{ current_user() is not null and current_user().imageProfile is not null ? '/uploads/' ~ current_user().imageProfile : '/pictures/avatar_defaut.png' }}"
+        alt=""
+/>
