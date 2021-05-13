@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        {{ include('admin/user/_form.html.twig', {'button_label': 'Mise à jour'}) }}
+        <br>
+        <a href="{{ path('admin_user_list') }}" class="btn btn-primary">retour à la liste</a>
+    </div>
+{% endblock %}

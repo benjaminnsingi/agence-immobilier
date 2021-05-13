@@ -40,6 +40,7 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user->setRoles(['ROLE_ADMIN']);
             $user = $form->getData();
 
             $search_email = $this->entityManager->getRepository(User::class)->findOneByEmail($user->getEmail());

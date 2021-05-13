@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\ChangePasswordFormType;
 use App\Form\ResetPasswordRequestFormType;
+use App\Services\MessageService;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -24,10 +25,12 @@ class ResetPasswordController extends AbstractController
     use ResetPasswordControllerTrait;
 
     private ResetPasswordHelperInterface $resetPasswordHelper;
+    private MessageService $messageService;
 
-    public function __construct(ResetPasswordHelperInterface $resetPasswordHelper)
+    public function __construct(ResetPasswordHelperInterface $resetPasswordHelper, MessageService $messageService)
     {
         $this->resetPasswordHelper = $resetPasswordHelper;
+        $this->messageService = $messageService;
     }
 
     /**
@@ -117,6 +120,7 @@ class ResetPasswordController extends AbstractController
 
             // The session is cleaned up after the password has been changed.
             $this->cleanSessionAfterReset();
+            $this->messageService->addSuccess('Votre mot de passe est mis à jour. ');
 
             return $this->redirectToRoute('app_login');
         }

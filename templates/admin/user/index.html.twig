@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User list{% endblock %}
+
+{% block content %}
+
+    <div class="container mt-5">
+        <div class="mt-5">
+            {{ include('component/flash_message.html.twig') }}
+        </div>
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Picture</th>
+                <th scope="col">Lastname</th>
+                <th scope="col">Firstname</th>
+                <th scope="col">Email</th>
+                <th scope="col">Rôles</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>
+                        <img
+                                class="rounded-circle"
+                                width="50"
+                                height="50"
+                                src="{{ user is not null and user.imageProfile is not null ? '/uploads/' ~ user.imageProfile : '/pictures/avatar_defaut.png' }}"
+                                alt=""
+                        />
+                    </td>
+                    <td>{{ user.lastname }}</td>
+                    <td>{{ user.firstname }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        {% for role in user.roles %}
+                            {% if role == "ROLE_USER" %}
+                                User
+                            {% elseif role == "ROLE_ADMIN" %}
+                                Admin
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td class="input-group-append">
+                        <a href="{{ path('admin_edit_user', {'id': user.id}) }}" class="btn btn-primary">
+                            Modifier
+                        </a>
+                        &nbsp;
+                        {{ include('admin/user/_delete_form.html.twig') }}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7" class="alert alert-warning">no registered user</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="container pagination">
+            {{ knp_pagination_render(users) }}
+        </div>
+    </div>
+{% endblock %}
