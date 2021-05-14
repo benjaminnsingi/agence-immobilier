@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Property{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Create new Property</h1>
+
+        {{ include('property/_form.html.twig') }}
+        <br>
+        <a href="{{ path('property_index') }}">Retour à la liste</a>
+    </div>
+{% endblock %}

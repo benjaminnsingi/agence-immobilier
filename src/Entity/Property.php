@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PropertyRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -97,10 +99,21 @@ class Property
      */
     private ?float $lng = null;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Option::class, inversedBy="properties")
+     */
+    private Collection $options;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="properties")
+     */
+    private ?User $user;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
+        $this->options = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -296,6 +309,42 @@ class Property
     public function setLng(?float $lng): self
     {
         $this->lng = $lng;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Option[]
+     */
+    public function getOptions(): Collection
+    {
+        return $this->options;
+    }
+
+    public function addOption(Option $option): self
+    {
+        if (!$this->options->contains($option)) {
+            $this->options[] = $option;
+        }
+
+        return $this;
+    }
+
+    public function removeOption(Option $option): self
+    {
+        $this->options->removeElement($option);
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

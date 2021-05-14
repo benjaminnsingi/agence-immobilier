@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Property index{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="mt-5">
+        {{ include('component/flash_message.html.twig') }}
+    </div>
+    <h1>Property index</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Surface</th>
+            <th>Rooms</th>
+            <th>Bedrooms</th>
+            <th>Floor</th>
+            <th>Price</th>
+            <th>Heat</th>
+            <th>City</th>
+            <th>Address</th>
+            <th>Postal_code</th>
+            <th>Sold</th>
+            <th>CreatedAt</th>
+            <th>UpdatedAt</th>
+            <th>Lat</th>
+            <th>Lng</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for property in properties %}
+            <tr>
+                <td>{{ property.id }}</td>
+                <td>{{ property.title }}</td>
+                <td>{{ property.description }}</td>
+                <td>{{ property.surface }}</td>
+                <td>{{ property.rooms }}</td>
+                <td>{{ property.bedrooms }}</td>
+                <td>{{ property.floor }}</td>
+                <td>{{ property.price }}</td>
+                <td>{{ property.heat }}</td>
+                <td>{{ property.city }}</td>
+                <td>{{ property.address }}</td>
+                <td>{{ property.postalCode }}</td>
+                <td>{{ property.sold ? 'Yes' : 'No' }}</td>
+                <td>{{ property.createdAt ? property.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ property.updatedAt ? property.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ property.lat }}</td>
+                <td>{{ property.lng }}</td>
+                <td>
+                    <a href="{{ path('property_show', {'id': property.id}) }}" class="btn btn-primary">voir</a>
+                    <a href="{{ path('property_edit', {'id': property.id}) }}" class="btn btn-primary">modifier</a>
+                    {{ include('property/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="18" class="alert alert-warning">Aucun enregistrement trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('property_new') }}" class="btn btn-info">Ajouter un bien</a>
+</div>
+{% endblock %}

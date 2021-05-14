@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Option{% endblock %}
+
+{% block content %}
+  <div class="container">
+      <h1>Edit Option</h1>
+
+      {{ include('admin/option/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+      <br>
+      <a href="{{ path('option_index') }}" class="btn btn-primary">retour à la liste</a>
+  </div>
+{% endblock %}

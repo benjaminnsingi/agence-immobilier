@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Option{% endblock %}
+
+{% block body %}
+    <h1>Option</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ option.id }}</td>
+            </tr>
+            <tr>
+                <th>Nome</th>
+                <td>{{ option.name }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('option_index') }}" class="btn btn-primary">retour à la liste</a>
+
+    <a href="{{ path('option_edit', {'id': option.id}) }}" class="btn btn-primary">modifier</a>
+{% endblock %}
