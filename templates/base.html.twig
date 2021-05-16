@@ -34,11 +34,13 @@
                     <div class="text-end">
                         {% if app.user %}
                             <a href="{{ path('app_profile_edit') }}" class="btn btn-outline-light me-2">Mon profile</a>
+                            <a href="{{ path('property_index') }}" class="btn btn-outline-light me-2">Mes annonces</a>
                             <a href="{{ path('account') }}" class="btn btn-outline-light me-2">Mon compte</a>
                             <a href="{{ path('app_logout') }}" class="btn btn-warning">Deconnexion</a>
                         {% if is_granted('ROLE_ADMIN')%}
                             <a href="{{ path('admin_user_list') }}" class="btn btn-warning">Admin</a>
-                            <a href="{{ path('option_index') }}">Option</a>
+                            <a href="{{ path('option_index') }}">Gestion des options</a>
+                            <a href="{{ path('category_index') }}">Gestion de categories</a>
                         {% endif %}
                             {% include 'fragments/current_user.html.twig' with {'width': 50, 'height': 50 } only %}
                             <span class="text-dark">{{ app.user.firstname }}&nbsp{{ app.user.lastname }}</span>

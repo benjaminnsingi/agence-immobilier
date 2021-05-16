@@ -8,27 +8,24 @@
         {{ include('component/flash_message.html.twig') }}
     </div>
     <h1>Property index</h1>
+    <div class="d-flex justify-content-end">
+        <a href="{{ path('property_new') }}" class="btn btn-info">Ajouter un bien</a>
+    </div>
 
     <table class="table">
         <thead>
         <tr>
             <th>Id</th>
-            <th>Title</th>
-            <th>Description</th>
+            <th>Prénom</th>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Titre</th>
             <th>Surface</th>
-            <th>Rooms</th>
-            <th>Bedrooms</th>
-            <th>Floor</th>
-            <th>Price</th>
-            <th>Heat</th>
-            <th>City</th>
-            <th>Address</th>
-            <th>Postal_code</th>
-            <th>Sold</th>
-            <th>CreatedAt</th>
-            <th>UpdatedAt</th>
-            <th>Lat</th>
-            <th>Lng</th>
+            <th>Pièces</th>
+            <th>Chambres</th>
+            <th>Étage</th>
+            <th>Prix</th>
+            <th>Chauffage</th>
             <th>actions</th>
         </tr>
         </thead>
@@ -36,22 +33,18 @@
         {% for property in properties %}
             <tr>
                 <td>{{ property.id }}</td>
+                {% if is_granted('ROLE_ADMIN')%}
+                <td>{{ property.user.lastname }}</td>
+                <td>{{ property.user.firstname }}</td>
+                <td>{{ property.user.email }}</td>
+                {% endif %}
                 <td>{{ property.title }}</td>
-                <td>{{ property.description }}</td>
                 <td>{{ property.surface }}</td>
                 <td>{{ property.rooms }}</td>
                 <td>{{ property.bedrooms }}</td>
                 <td>{{ property.floor }}</td>
                 <td>{{ property.price }}</td>
-                <td>{{ property.heat }}</td>
-                <td>{{ property.city }}</td>
-                <td>{{ property.address }}</td>
-                <td>{{ property.postalCode }}</td>
-                <td>{{ property.sold ? 'Yes' : 'No' }}</td>
-                <td>{{ property.createdAt ? property.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ property.updatedAt ? property.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ property.lat }}</td>
-                <td>{{ property.lng }}</td>
+                <td>{{ property.heatType }}</td>
                 <td>
                     <a href="{{ path('property_show', {'id': property.id}) }}" class="btn btn-primary">voir</a>
                     <a href="{{ path('property_edit', {'id': property.id}) }}" class="btn btn-primary">modifier</a>
@@ -65,7 +58,8 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('property_new') }}" class="btn btn-info">Ajouter un bien</a>
+    <div class="container pagination">
+        {{ knp_pagination_render(properties) }}
+    </div>
 </div>
 {% endblock %}

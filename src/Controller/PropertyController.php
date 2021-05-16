@@ -5,21 +5,19 @@ namespace App\Controller;
 use App\Entity\Property;
 use App\Entity\User;
 use App\Form\PropertyType;
-use App\Repository\PropertyRepository;
 use App\Services\MessageService;
 use Doctrine\ORM\EntityManagerInterface;
-use Knp\Component\Pager\Paginator;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 #[Route('/property')]
 class PropertyController extends AbstractController
 {
-    private EntityManagerInterface $entityManager;
     private MessageService $messageService;
 
     public function __construct(MessageService $messageService)
@@ -28,7 +26,7 @@ class PropertyController extends AbstractController
     }
 
     #[Route('/', name: 'property_index', methods: ['GET'])]
-    public function index(TokenStorageInterface $tokenStorage, Paginator $paginator, Request $request): Response
+    public function index(TokenStorageInterface $tokenStorage, EntityManagerInterface $entityManager,PaginatorInterface $paginator, Request $request): Response
     {
         $token = $tokenStorage->getToken();
         $currentUser = null !== $token ? $token->getUser() : null;
@@ -37,7 +35,7 @@ class PropertyController extends AbstractController
             throw new UnauthorizedHttpException('Non autorisé');
         }
 
-        $qb = $this->entityManager->createQueryBuilder()
+        $qb = $entityManager->createQueryBuilder()
              ->select('p')
              ->from(Property::class, 'p');
 

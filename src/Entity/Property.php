@@ -12,6 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Property
 {
+    Const HEAT = [
+        0 => 'Electrique',
+        1 => 'Gaz'
+    ];
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -215,6 +220,11 @@ class Property
         $this->heat = $heat;
 
         return $this;
+    }
+
+    public function getHeatType(): string
+    {
+        return self::HEAT[$this->heat];
     }
 
     public function getCity(): ?string

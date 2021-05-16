@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Category index{% endblock %}
+
+{% block content %}
+   <div class="container">
+       <div class="mt-5">
+           {{ include('component/flash_message.html.twig') }}
+       </div>
+       <h1>Category index</h1>
+
+       <table class="table">
+           <thead>
+           <tr>
+               <th>Id</th>
+               <th>Nom</th>
+               <th>actions</th>
+           </tr>
+           </thead>
+           <tbody>
+           {% for category in categories %}
+               <tr>
+                   <td>{{ category.id }}</td>
+                   <td>{{ category.name }}</td>
+                   <td>
+                       <a href="{{ path('category_show', {slug: category.slug, id: category.id}) }}" class="btn btn-primary">Voir</a>
+                       <a href="{{ path('category_edit', {'id': category.id}) }}" class="btn btn-primary">Modifier</a>
+                   </td>
+               </tr>
+           {% else %}
+               <tr>
+                   <td colspan="4" class="alert alert-warning">Aucun enregistrement trouvé</td>
+               </tr>
+           {% endfor %}
+           </tbody>
+       </table>
+
+       <a href="{{ path('category_new') }}" class="btn btn-primary">Ajout</a>
+   </div>
+{% endblock %}
