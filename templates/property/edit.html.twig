@@ -7,7 +7,7 @@
        <h1>Edit Property</h1>
 
        {{ include('property/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
-
-       <a href="{{ path('property_index') }}">Retour à la liste</a>
+       <br>
+       <a href="{{ path('property_index') }}" class="btn btn-primary">Retour à la liste</a>
    </div>
 {% endblock %}

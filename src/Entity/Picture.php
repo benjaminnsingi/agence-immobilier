@@ -2,17 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\CategoryRepository;
+use App\Repository\PictureRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity(repositoryClass=CategoryRepository::class)
- * @ORM\Table("categories")
+ * @ORM\Entity(repositoryClass=PictureRepository::class)
+ * @ORM\Table(name="`pictures`")
  */
-class Category
+class Picture
 {
     /**
      * @ORM\Id
@@ -27,20 +26,9 @@ class Category
     private ?string $name = null;
 
     /**
-     * @Gedmo\Slug(fields={"name"})
-     * @ORM\Column(type="string", length=255)
-     */
-    private ?string $slug = null;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Property::class, mappedBy="categories")
+     * @ORM\ManyToMany(targetEntity=Property::class, mappedBy="picture")
      */
     private Collection $properties;
-
-    public function __toString()
-    {
-        return $this->name;
-    }
 
     public function __construct()
     {
@@ -64,11 +52,6 @@ class Category
         return $this;
     }
 
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
     /**
      * @return Collection|Property[]
      */
@@ -81,7 +64,7 @@ class Category
     {
         if (!$this->properties->contains($property)) {
             $this->properties[] = $property;
-            $property->setCategories($this);
+            $property->addPicture($this);
         }
 
         return $this;
@@ -90,10 +73,7 @@ class Category
     public function removeProperty(Property $property): self
     {
         if ($this->properties->removeElement($property)) {
-            // set the owning side to null (unless already changed)
-            if ($property->getCategories() === $this) {
-                $property->setCategories(null);
-            }
+            $property->removePicture($this);
         }
 
         return $this;

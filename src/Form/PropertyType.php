@@ -24,6 +24,12 @@ class PropertyType extends AbstractType
             ->add('title',TextType::class, [
                 'label' => 'Titre'
             ])
+            ->add('categories',EntityType::class,[
+                'class' => Category::class,
+                'required' => false,
+                'choice_label' => 'name',
+                'multiple' => false
+            ])
             ->add('description',TextareaType::class,[
                 'label' => 'Description'
             ])
