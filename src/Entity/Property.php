@@ -123,14 +123,20 @@ class Property
     private ?Category $categories;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Picture::class, inversedBy="properties")
+     * @Gedmo\Slug(fields={"title"})
+     * @ORM\Column(type="string", length=255)
      */
-    private Collection $picture;
+    private ?string $slug = null;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="property", orphanRemoval=true,cascade={"persist"})
+     */
+    private Collection $pictures;
 
     public function __construct()
     {
         $this->options = new ArrayCollection();
-        $this->picture = new ArrayCollection();
+        $this->pictures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -220,6 +226,11 @@ class Property
         $this->price = $price;
 
         return $this;
+    }
+
+    public function getFormattedPrice(): string
+    {
+        return number_format($this->price, 0, '', ' ');
     }
 
     public function getHeat(): ?int
@@ -383,18 +394,24 @@ class Property
         return $this;
     }
 
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
     /**
      * @return Collection|Picture[]
      */
-    public function getPicture(): Collection
+    public function getPictures(): Collection
     {
-        return $this->picture;
+        return $this->pictures;
     }
 
     public function addPicture(Picture $picture): self
     {
-        if (!$this->picture->contains($picture)) {
-            $this->picture[] = $picture;
+        if (!$this->pictures->contains($picture)) {
+            $this->pictures[] = $picture;
+            $picture->setProperty($this);
         }
 
         return $this;
@@ -402,7 +419,12 @@ class Property
 
     public function removePicture(Picture $picture): self
     {
-        $this->picture->removeElement($picture);
+        if ($this->pictures->removeElement($picture)) {
+            // set the owning side to null (unless already changed)
+            if ($picture->getProperty() === $this) {
+                $picture->setProperty(null);
+            }
+        }
 
         return $this;
     }

@@ -16,9 +16,11 @@
         <thead>
         <tr>
             <th>Id</th>
+            {% if is_granted('ROLE_ADMIN')%}
             <th>Prénom</th>
             <th>Nom</th>
             <th>Email</th>
+            {% endif %}
             <th>Titre</th>
             <th>Surface</th>
             <th>Pièces</th>

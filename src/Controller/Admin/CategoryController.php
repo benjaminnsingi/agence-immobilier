@@ -51,7 +51,7 @@ class CategoryController extends AbstractController
         ]);
     }
 
-    #[Route('/{slug}-{id]', name: 'category_show', methods: ['GET'])]
+    #[Route('/{slug}-{id}', name: 'category_show', methods: ['GET'])]
     public function show(Category $category): Response
     {
         return $this->render('admin/category/show.html.twig', [

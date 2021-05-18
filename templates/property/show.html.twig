@@ -31,6 +31,21 @@
                 <td>{{ property.title }}</td>
             </tr>
             <tr>
+                {% for picture in property.pictures %}
+                <td>
+                    <img src="{{ asset('uploads/' ~ picture.name) }}" alt="{{ property.title }}" height="250" width="250">
+                </td>
+                {% else%}
+                <td>
+                    <img src="{{ asset('pictures/empty.jpg') }}"style="width: 100%; height:auto;" alt="">
+                </td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ property.title }}</td>
+            </tr>
+            <tr>
                 <th>Description</th>
                 <td>{{ property.description }}</td>
             </tr>

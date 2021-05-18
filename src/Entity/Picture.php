@@ -26,14 +26,9 @@ class Picture
     private ?string $name = null;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Property::class, mappedBy="picture")
+     * @ORM\ManyToOne(targetEntity=Property::class, inversedBy="pictures")
      */
-    private Collection $properties;
-
-    public function __construct()
-    {
-        $this->properties = new ArrayCollection();
-    }
+    private ?Property $property = null;
 
     public function getId(): ?int
     {
@@ -52,29 +47,14 @@ class Picture
         return $this;
     }
 
-    /**
-     * @return Collection|Property[]
-     */
-    public function getProperties(): Collection
+    public function getProperty(): ?Property
     {
-        return $this->properties;
+        return $this->property;
     }
 
-    public function addProperty(Property $property): self
+    public function setProperty(?Property $property): self
     {
-        if (!$this->properties->contains($property)) {
-            $this->properties[] = $property;
-            $property->addPicture($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProperty(Property $property): self
-    {
-        if ($this->properties->removeElement($property)) {
-            $property->removePicture($this);
-        }
+        $this->property = $property;
 
         return $this;
     }
