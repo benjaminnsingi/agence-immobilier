@@ -1,3 +1,10 @@
-body {
-    background-color: #fff;
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+}
+.filter {
+    display: block;
+    position: sticky;
+    top: 20px;
 }

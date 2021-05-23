@@ -3,7 +3,7 @@
 {% block title %}Voir tous nos biens{% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container js-filter">
     <div class="mt-5">
         {{ include('component/flash_message.html.twig') }}
     </div>
@@ -11,8 +11,8 @@
         <div class="col-md-3">
             {% include 'home/_filter.html.twig' with {form: form, min: min, max: max } only  %}
         </div>
-        <div class="col-md-4">
-            <div class="grid">
+        <div class="col-md-9">
+            <div class="grid js-filter-content">
                 {% for property in properties %}
                     {% include 'home/_card.html.twig' with {property: property} only %}
                 {% endfor %}

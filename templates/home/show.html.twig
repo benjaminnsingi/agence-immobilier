@@ -6,7 +6,7 @@
     <div class="jumbotron">
         <div class="container">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     {% for picture in property.pictures %}
                         <div class="col">
                             <img src="{{ asset('uploads/' ~ picture.name) }}" style="width: 100%; height:auto;" alt="{{ property.title }}">
@@ -15,10 +15,12 @@
                         <img src="{{ asset('pictures/empty.jpg') }}" style="width: 100%; height:auto;" alt="">
                     {% endfor %}
                 </div>
-                 <div class="col-md-3">
-                     <p>{{ property.user.lastname }}</p>
-                     <p>{{ property.user.firstname }}</p>
-                     <p>{{ property.user.email }}</p>
+                 <div class="card col-md-3">
+                     <br>
+                     {% include 'fragments/current_user.html.twig' with {'width': 250, 'height': 250 }%}
+                     <div class="text-center">
+                         <p>{{ property.user.lastname }} {{ property.user.firstname }}</p>
+                     </div>
                  </div>
             </div>
         </div>
