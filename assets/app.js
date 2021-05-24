@@ -2,7 +2,10 @@
 // any CSS you import will output into a single css file (app.css in this case)
 
 import './js/admin';
-import './js/picture'
+import './js/picture';
+import Filter from "./js/filter";
+
+new Filter(document.querySelector('.js-filter'))
 
 // start the Stimulus application
 import noUSlider from 'nouislider';
@@ -14,6 +17,11 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 const slider = document.getElementById('price-slider');
 
+/**
+ * The price filter
+ *
+ * This system will allow the user to change the minimum and maximum price by simple drag and drop.
+ */
 if (slider) {
     const min = document.getElementById('min')
     const max = document.getElementById('max')
@@ -35,6 +43,8 @@ if (slider) {
         if (handleNumber === 1) {
             max.value = Math.round(values[1])
         }
-        console.log(values, handleNumber)
+    })
+    range.on('end', function (values,handleNumber){
+        min.dispatchEvent(new Event('change'))
     })
 }

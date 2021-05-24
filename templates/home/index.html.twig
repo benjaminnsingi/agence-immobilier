@@ -13,13 +13,11 @@
         </div>
         <div class="col-md-9">
             <div class="grid js-filter-content">
-                {% for property in properties %}
-                    {% include 'home/_card.html.twig' with {property: property} only %}
-                {% endfor %}
+                {% include 'home/_property.html.twig' %}
             </div>
-        </div>
-        <div class="mt-4">
-            {{ knp_pagination_render(properties) }}
+            <div class="mt-4 js-filter-pagination">
+                {{ knp_pagination_render(properties) }}
+            </div>
         </div>
     </div>
 </div>

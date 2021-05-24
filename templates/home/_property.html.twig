@@ -1,0 +1,3 @@
+{% for property in properties %}
+    {% include 'home/_card.html.twig' with {property: property} only %}
+{% endfor %}
