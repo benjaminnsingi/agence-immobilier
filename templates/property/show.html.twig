@@ -1,117 +1,65 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Property{% endblock %}
+{% block title %}{{ property.title}}{% endblock %}
 
 {% block content %}
+    <div class="jumbotron">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    {% for picture in property.pictures %}
+                        <div class="col">
+                            <img src="{{ asset('uploads/' ~ picture.name) }}" style="width: 100%; height:auto;" alt="{{ property.title }}">
+                        </div>
+                    {% else%}
+                        <img src="{{ asset('pictures/empty.jpg') }}" style="width: 100%; height:auto;" alt="">
+                    {% endfor %}
+                </div>
+                 <div class="card col-md-3">
+                     <br>
+                     <img
+                             class="rounded-circle"
+                             width="250"
+                             height="250"
+                             src="{{ property.user.imageProfile is not null and property.user.imageProfile is not null ? '/uploads/' ~ property.user.imageProfile : '/pictures/avatar_defaut.png' }}"
+                             alt=""
+                     />
+                     <div class="text-center">
+                         <p>{{ property.user.lastname }} {{ property.user.firstname }}</p>
+                     </div>
+                 </div>
+            </div>
+        </div>
+    </div>
     <div class="container">
-        <h1>Property</h1>
+        <p>{{ property.description | nl2br }}</p>
 
-        <table class="table">
-            <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ property.id }}</td>
-            </tr>
-            {% if is_granted('ROLE_ADMIN')%}
-            <tr>
-                <th>Prénom</th>
-                <td>{{ property.user.lastname }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ property.user.firstname }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ property.user.email }}</td>
-            </tr>
-            {% endif %}
-            <tr>
-                <th>Title</th>
-                <td>{{ property.title }}</td>
-            </tr>
-            <tr>
-                {% for picture in property.pictures %}
-                <td>
-                    <img src="{{ asset('uploads/' ~ picture.name) }}" alt="{{ property.title }}" height="250" width="250">
-                </td>
-                {% else%}
-                <td>
-                    <img src="{{ asset('pictures/empty.jpg') }}"style="width: 100%; height:auto;" alt="">
-                </td>
-                {% endfor %}
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ property.title }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ property.description }}</td>
-            </tr>
-            <tr>
-                <th>Surface</th>
-                <td>{{ property.surface }}</td>
-            </tr>
-            <tr>
-                <th>Rooms</th>
-                <td>{{ property.rooms }}</td>
-            </tr>
-            <tr>
-                <th>Bedrooms</th>
-                <td>{{ property.bedrooms }}</td>
-            </tr>
-            <tr>
-                <th>Floor</th>
-                <td>{{ property.floor }}</td>
-            </tr>
-            <tr>
-                <th>Price</th>
-                <td>{{ property.price }}</td>
-            </tr>
-            <tr>
-                <th>Heat</th>
-                <td>{{ property.heatType }}</td>
-            </tr>
-            <tr>
-                <th>City</th>
-                <td>{{ property.city }}</td>
-            </tr>
-            <tr>
-                <th>Address</th>
-                <td>{{ property.address }}</td>
-            </tr>
-            <tr>
-                <th>Postal_code</th>
-                <td>{{ property.postalCode }}</td>
-            </tr>
-            <tr>
-                <th>Sold</th>
-                <td>{{ property.sold ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ property.createdAt ? property.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ property.updatedAt ? property.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Lat</th>
-                <td>{{ property.lat }}</td>
-            </tr>
-            <tr>
-                <th>Lng</th>
-                <td>{{ property.lng }}</td>
-            </tr>
-            </tbody>
-        </table>
-
-        <a href="{{ path('property_index') }}" class="btn btn-primary">Retour à la liste</a>
-
-        <a href="{{ path('property_edit', {'id': property.id}) }}" class="btn btn-primary">modifier</a>
-
-        {{ include('property/_delete_form.html.twig') }}
+        <div class="row">
+            <div class="col-md-8">
+                <h2>Caractéristiques</h2>
+                <table class="table table-striped">
+                    <tr>
+                        <td>Surface habitable</td>
+                        <td>{{ property.surface }}</td>
+                    </tr>
+                    <tr>
+                        <td>Pièces</td>
+                        <td>{{ property.rooms }}</td>
+                    </tr>
+                    <tr>
+                        <td>Chambres</td>
+                        <td>{{ property.bedrooms }}</td>
+                    </tr>
+                    <tr>
+                        <td>Etage</td>
+                        <td>{{ property.floor }}</td>
+                    </tr>
+                    <tr>
+                        <td>Chauffage</td>
+                        <td>{{ property.heatType }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
     </div>
 {% endblock %}

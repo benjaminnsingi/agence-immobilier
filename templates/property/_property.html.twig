@@ -1,0 +1,26 @@
+{% for property in properties %}
+    <div class="card" id="property-{{ property.id }}">
+        {% for picture in property.pictures %}
+            <a href="">
+                <img src="{{ asset('uploads/' ~ picture.name) }}" alt="{{ property.title }}" class="card-img-top">
+            </a>
+        {% else%}
+            <a href="">
+                <img src="{{ asset('pictures/empty.jpg') }}" alt="" class="card-img-top">
+            </a>
+        {% endfor %}
+        <div class="card-body">
+            <h5 class="card-title">{{ property.title}}</h5>
+            <p class="card-text">{{ property.surface }} m²</p>
+            <p class="card-text">{{ property.city }} - {{ property.postalCode }}</p>
+            <div class="card-title text-primary" style="font-weight: bold; font-size: 1.5rem;">
+                {{ property.price | number_format(0, ',', ' ') }} €
+            </div>
+            <div>
+                {% for category in property.categories %}
+                    <em class="text-muted text-primary text-italic">{{ category.name }}</em>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endfor %}

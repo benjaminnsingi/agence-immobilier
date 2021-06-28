@@ -6,6 +6,8 @@ use App\Repository\PropertyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Cocur\Slugify\Slugify;
+use JetBrains\PhpStorm\Pure;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
@@ -123,17 +125,11 @@ class Property
     private ?Category $categories;
 
     /**
-     * @Gedmo\Slug(fields={"title"})
-     * @ORM\Column(type="string", length=255)
-     */
-    private ?string $slug = null;
-
-    /**
      * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="property", orphanRemoval=true,cascade={"persist"})
      */
     private Collection $pictures;
 
-    public function __construct()
+    #[Pure] public function __construct()
     {
         $this->options = new ArrayCollection();
         $this->pictures = new ArrayCollection();
@@ -154,6 +150,11 @@ class Property
         $this->title = $title;
 
         return $this;
+    }
+
+    public function getSlug(): string
+    {
+        return (new Slugify())->slugify($this->title);
     }
 
     public function getDescription(): ?string
@@ -347,7 +348,7 @@ class Property
     }
 
     /**
-     * @return Collection|Option[]
+     * @return Collection
      */
     public function getOptions(): Collection
     {
@@ -394,13 +395,8 @@ class Property
         return $this;
     }
 
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
     /**
-     * @return Collection|Picture[]
+     * @return Collection
      */
     public function getPictures(): Collection
     {

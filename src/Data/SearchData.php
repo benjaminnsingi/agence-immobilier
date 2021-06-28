@@ -8,7 +8,7 @@ use App\Entity\Category;
 
 class SearchData
 {
-   public int $page;
+    public int $page;
 
     /**
      * @var Category|array
@@ -24,4 +24,9 @@ class SearchData
      * @var null|integer
      */
     public ?int $min;
+
+    /**
+     * @var string|null
+     */
+    public ?string $address;
 }

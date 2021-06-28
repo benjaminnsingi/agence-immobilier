@@ -78,7 +78,6 @@ export default class Filter {
         if (response.status >= 200 && response.status < 300) {
             const data = await response.json()
             this.flipContent(data.content, append)
-            //this.sorting.innerHTML = data.sorting
             if (!this.moreNav) {
                 this.pagination.innerHTML = data.pagination
             } else if (this.page === data.pages) {

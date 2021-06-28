@@ -1,8 +1,12 @@
 <div class="card" id="property-{{ property.id }}">
     {% for picture in property.pictures %}
-        <img src="{{ asset('uploads/' ~ picture.name) }}" alt="{{ property.title }}"class="card-img-top">
+        <a href="{{ path('property.show', {slug: property.slug,'id': property.id} ) }}">
+            <img src="{{ asset('uploads/' ~ picture.name) }}" alt="{{ property.title }}" class="card-img-top">
+        </a>
     {% else%}
-        <img src="{{ asset('pictures/empty.jpg') }}" alt="" class="card-img-top">
+        <a href="{{ path('property.show', {'id': property.id} ) }}">
+            <img src="{{ asset('pictures/empty.jpg') }}" alt="" class="card-img-top">
+        </a>
     {% endfor %}
     <div class="card-body">
         <h5 class="card-title">{{ property.title}}</h5>
@@ -16,6 +20,5 @@
             <em class="text-muted text-primary text-italic">{{ category.name }}</em>
             {% endfor %}
         </div>
-        <a href="{{ path('property.show', {'id': property.id} ) }}">Voir</a>
     </div>
 </div>

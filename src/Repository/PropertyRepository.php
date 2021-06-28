@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Data\SearchData;
 use App\Entity\Property;
+use App\Entity\PropertySearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -26,11 +27,73 @@ class PropertyRepository extends ServiceEntityRepository
         $this->paginator = $paginator;
     }
 
+    public function paginateAllVisible(PropertySearch $search, int $page): PaginationInterface
+    {
+        $query = $this->findVisibleQuery();
+
+        if ($search->getMaxPrice()) {
+            $query = $query
+                ->andWhere('p.price <= : :maxprice')
+                ->setParameter('maxprice', $search->getMaxPrice());
+        }
+
+        if ($search->getMinSurface()) {
+            $query = $query
+                ->andWhere('p.surface >= :minsurface')
+                ->setParameter('minsurface', $search->getMinSurface());
+        }
+
+        if ($search->getLat() && $search->getLng() && $search->getDistance()) {
+            $query = $query
+                ->andWhere('(6353 * 2 * ASIN(SQRT( POWER(SIN((p.lat - :lat) *  pi()/180 / 2), 2) +COS(p.lat * pi()/180) * COS(:lat * pi()/180) * POWER(SIN((p.lng - :lng) * pi()/180 / 2), 2) ))) <= :distance')
+                ->setParameter('lng', $search->getLng())
+                ->setParameter('lat', $search->getLat())
+                ->setParameter('distance',$search->getDistance());
+
+        }
+
+        if ($search->getOptions()->count() > 0) {
+            $k = 0;
+            foreach ($search->getOptions() as $option) {
+                $k++;
+                $query = $query
+                  ->andWhere(":option$k MEMBER OF p.options")
+                  ->setParameter("option$k", $option);
+            }
+        }
+
+        $properties = $this->paginator->paginate(
+            $query->getQuery(),
+            $page,
+            10
+        );
+
+        return $properties;
+    }
+
+
+    public function findLatest(): array
+    {
+        $properties = $this->findVisibleQuery()
+             ->setMaxResults(3)
+             ->getQuery()
+            ->getResult();
+
+        return $properties;
+    }
+
+    private function findVisibleQuery(): QueryBuilder
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.sold = false');
+    }
+
     /**
      * Retrieves products related to a search
-     * @param SearchData $searchData
-     * @return PaginationInterface
+     /* @param SearchData $searchData
+     /* @return PaginationInterface
      */
+    /*
     public function findSearch(SearchData $searchData): PaginationInterface
     {
         $query = $this->getSearchQuery($searchData)->getQuery();
@@ -39,13 +102,14 @@ class PropertyRepository extends ServiceEntityRepository
             $searchData->page,
             9
         );
-    }
+    }*/
 
     /**
      * Retrieves the minimum and maximum price corresponding to a search
-     * @param SearchData $searchData
-     * @return int[]
+     /* @param SearchData $searchData
+     /* @return int[]
      */
+    /*
     public function findMinMax(SearchData $searchData): array
     {
         $results = $this->getSearchQuery($searchData, true)
@@ -82,7 +146,7 @@ class PropertyRepository extends ServiceEntityRepository
         }
 
         return $query;
-    }
+    }*/
 
     // /**
     //  * @return Property[] Returns an array of Property objects
