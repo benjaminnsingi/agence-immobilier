@@ -27,20 +27,23 @@ class PropertyController extends AbstractController
         $this->repository = $repository;
     }
 
-    #[Route("/biens", name: 'property.index', methods: ['GET'])]
+    #[Route("/biens", name: "property.index", methods: ['GET'])]
     public function index(PaginatorInterface $paginator, Request $request): Response
     {
         $search = new PropertySearch();
         $form = $this->createForm(PropertySearchType::class, $search);
         $form->handleRequest($request);
-        return $this->render('property/index.html.twig', [
+        return $this->render('pages/index.html.twig', [
             'current_menu' => 'properties',
             'properties'   => $this->repository->paginateAllVisible($search, $request->query->getInt('page', 1)),
             'form'         => $form->createView()
         ]);
     }
-/*
-    #[Route("/biens/{slug}-{id}", name: "property.show", requirements: ["slug: [a-z0-9\-]*"])]
+
+    ##[Route("/biens/{slug}-{id}", name: "property.show", requirements: ["slug: [a-z0-9\-]*"])]##
+    /**
+     * @Route("/biens/{slug}-{id}", name="property.show", requirements={"slug": "[a-z0-9\-]*"})
+     */
     public function show(Property $property, string $slug): Response
     {
         if ($property->getSlug() !== $slug) {
@@ -50,10 +53,9 @@ class PropertyController extends AbstractController
             ], 301);
         }
 
-        return $this->render('property/show.html.twig', [
+        return $this->render('pages/show.html.twig', [
             'property'     => $property,
             'current_menu' => 'properties',
         ]);
     }
-*/
 }

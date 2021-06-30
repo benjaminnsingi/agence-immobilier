@@ -52,7 +52,7 @@ class ProfileController extends AbstractController
             $this->messageService->addSuccess('Profile est mis à jour ');
         }
 
-        return $this->render('profile/profile.html.twig',[
+        return $this->render('account/profile/profile.html.twig',[
             'user' => $user,
             'form' => $form->createView()
         ]);

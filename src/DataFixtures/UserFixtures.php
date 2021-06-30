@@ -12,26 +12,40 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserFixtures extends Fixture
 {
-    private UserPasswordEncoderInterface $encoder;
+    private UserPasswordEncoderInterface $passwordEncoder;
 
-    public function __construct(UserPasswordEncoderInterface $encoder)
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
     {
-        $this->encoder = $encoder;
+        $this->passwordEncoder = $passwordEncoder;
     }
 
     public function load(ObjectManager $manager)
     {
-        $faker = Factory::create('en_FR');
-        for ($i = 0; $i< 12; $i++ ) {
-            $user = new User();
-            $user
-                ->setLastname($faker->lastName)
-                ->setFirstname($faker->firstName)
-                ->setEmail($faker->email)
-                ->setRoles(['ROLE_USER'])
-                ->setPassword($this->encoder->encodePassword($user, '123456'));
+       $admin = new User();
 
-            $manager->persist($user);
+       $admin
+           ->setLastname('doe')
+           ->setFirstname('john')
+           ->setEmail('john.doe@benshop.com')
+           ->setPassword(
+               $this->passwordEncoder->encodePassword($admin, 'admin123')
+           )
+           ->setRoles(User::ROLE_ADMIN)
+       ;
+      $manager->persist($admin);
+
+       $faker = Factory::create('fr_FR');
+       $author = array();
+        for ($i = 0; $i< 20; $i++) {
+            $author[$i] = new User();
+            $author[$i]->setLastname($faker->lastName);
+            $author[$i]->setFirstname($faker->firstName);
+            $author[$i]->setEmail($faker->email);
+            $author[$i]->setRoles(User::ROLE_USER);
+            $author[$i]->setPassword(
+                $this->passwordEncoder->encodePassword($author[$i], 'user123')
+            );
+            $manager->persist($author[$i]);
         }
         $manager->flush();
     }
