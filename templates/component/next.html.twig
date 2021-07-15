@@ -1,0 +1,63 @@
+<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+    <li><a href="{{ path('home') }}" class="nav-link px-2 text-white">Accueil</a></li>
+    <li><a href="{{ path('property.index') }}" class="nav-link px-2 text-white">Biens</a></li>
+</ul>
+
+<div class="text-end">
+    {% if app.user %}
+        <a href="{{ path('app_profile_edit') }}" class="btn btn-outline-light me-2">Mon profile</a>
+        <a href="{{ path('property_index') }}" class="btn btn-outline-light me-2">Mes annonces</a>
+        <a href="{{ path('account') }}" class="btn btn-outline-light me-2">Mon compte</a>
+        <a href="{{ path('app_logout') }}" class="btn btn-warning">Deconnexion</a>
+        {% if is_granted('ROLE_ADMIN')%}
+            <a href="{{ path('admin_user_list') }}" class="btn btn-warning">Admin</a>
+            <a href="{{ path('option_index') }}">Gestion des options</a>
+            <a href="{{ path('category_index') }}">Gestion de categories</a>
+        {% endif %}
+        {% include 'fragments/current_user.html.twig' with {'width': 50, 'height': 50 } only %}
+        <span class="text-dark">{{ app.user.firstname }}&nbsp{{ app.user.lastname }}</span>
+    {% else %}
+        <a href="{{ path('app_login') }}" class="btn btn-outline-light me-2">Connexion</a>
+        <a href="{{ path('registration') }}" class="btn btn-warning">Inscription</a>
+    {% endif %}
+</div>
+
+
+
+
+
+<div class="container">
+    <h2>Les derniers biens</h2>
+    <div class="row">
+        <div class="col-md-9">
+            <div class="grid">
+                {% for property in properties %}
+                    <div class="card" id="property-{{ property.id }}">
+                        {% for picture in property.pictures %}
+                            <a href="{{ path("property.index") }}">
+                                <img src="{{ asset('uploads/' ~ picture.name) }}" alt="{{ property.title }}" class="card-img-top">
+                            </a>
+                        {% else%}
+                            <a href="{{ path("property.index") }}">
+                                <img src="{{ asset('pictures/empty.jpg') }}" alt="" class="card-img-top">
+                            </a>
+                        {% endfor %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ property.title}}</h5>
+                            <p class="card-text">{{ property.surface }} m²</p>
+                            <p class="card-text">{{ property.city }} - {{ property.postalCode }}</p>
+                            <div class="card-title text-primary" style="font-weight: bold; font-size: 1.5rem;">
+                                {{ property.price | number_format(0, ',', ' ') }} €
+                            </div>
+                            <div>
+                                {% for category in property.categories %}
+                                    <em class="text-muted text-primary text-italic">{{ category.name }}</em>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,155 @@
+//@import "variables";
+
+/* Rent Properties */
+.section {
+  padding: 10rem 0;
+}
+
+.section.rent {
+  background-color: #f0f4f7;
+}
+
+.rent-center {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
+  gap: 4rem 2rem;
+}
+
+.title {
+
+  text-align: center;
+  margin-bottom: 5rem;
+  padding: 1rem;
+
+  h1 {
+    font-weight: 100;
+    font-size: 6rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.rent {
+
+  .box {
+    transition: all 300ms ease-in-out;
+    background-color: white;
+
+    .top {
+      padding: 1rem;
+      position: relative;
+      height: 20rem;
+      transition: all 300ms ease-in-out;
+    }
+
+    .top img {
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 1rem;
+      background-color: white;
+      height: 20rem;
+      width: 100%;
+    }
+
+    .overlay::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.2);
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 300ms ease-in-out;
+    }
+
+    .top:hover .overlay::after {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .pos {
+      position: absolute;
+      top: 2rem;
+      left: 2rem;
+    }
+
+    .pos span {
+      display: inline-block;
+      font-size: 1.3rem;
+      color: white;
+      margin-right: 0.5rem;
+      padding: 0.3rem;
+      border-radius: 0.3rem;
+    }
+
+    .pos span:first-child {
+      background-color: #43c370;
+    }
+
+    .pos span:last-child {
+      background-color: #e0203b;
+    }
+
+    .bottom {
+      padding: 1.5rem;
+    }
+
+    .bottom p {
+      font-size: 2rem;
+      font-weight: 500;
+      color: #555;
+      cursor: pointer;
+      transition: all 300ms ease-in-out;
+    }
+
+    .bottom div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+      color: #555;
+    }
+
+    .bottom div span {
+      font-size: 1.8rem;
+    }
+
+    .bottom div i {
+      font-size: 2.5rem;
+    }
+
+  }
+
+  .box:hover {
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+
+    .top {
+      cursor: pointer;
+    }
+  }
+
+  .box:hover .bottom p {
+    color: #006eff;
+  }
+
+}
+
+
+@media (max-width: 768px) {
+  .title h1 {
+    font-size: 4rem;
+  }
+}
+
+@media (max-width: 567px) {
+  .title h1 {
+    font-size: 3rem;
+  }
+}

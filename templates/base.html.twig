@@ -2,7 +2,7 @@
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}BN IMMO Votre site immobilier{% endblock %}</title>
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
@@ -12,40 +12,8 @@
         {% endblock %}
     </head>
     <body>
-        <header class="p-3 bg-dark text-white">
-            <div class="container">
-                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                    <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
-                    </a>
-
-                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                        <li><a href="{{ path('home') }}" class="nav-link px-2 text-white">Accueil</a></li>
-                        <li><a href="{{ path('property.index') }}" class="nav-link px-2 text-white">Biens</a></li>
-                    </ul>
-
-                    <div class="text-end">
-                        {% if app.user %}
-                            <a href="{{ path('app_profile_edit') }}" class="btn btn-outline-light me-2">Mon profile</a>
-                            <a href="{{ path('property_index') }}" class="btn btn-outline-light me-2">Mes annonces</a>
-                            <a href="{{ path('account') }}" class="btn btn-outline-light me-2">Mon compte</a>
-                            <a href="{{ path('app_logout') }}" class="btn btn-warning">Deconnexion</a>
-                        {% if is_granted('ROLE_ADMIN')%}
-                            <a href="{{ path('admin_user_list') }}" class="btn btn-warning">Admin</a>
-                            <a href="{{ path('option_index') }}">Gestion des options</a>
-                            <a href="{{ path('category_index') }}">Gestion de categories</a>
-                        {% endif %}
-                            {% include 'fragments/current_user.html.twig' with {'width': 50, 'height': 50 } only %}
-                            <span class="text-dark">{{ app.user.firstname }}&nbsp{{ app.user.lastname }}</span>
-                        {% else %}
-                            <a href="{{ path('app_login') }}" class="btn btn-outline-light me-2">Connexion</a>
-                            <a href="{{ path('registration') }}" class="btn btn-warning">Inscription</a>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        </header>
-        <div style="margin-top: 3rem;">
+       {% include 'component/navbar.html.twig' %}
+        <div>
             {% block content %}{% endblock %}
         </div>
     </body>

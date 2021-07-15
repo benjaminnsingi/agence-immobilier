@@ -20,11 +20,10 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "bootstrap": "^5.0.0",
-        "flip-toolkit": "^7.0.13",
-        "material-design-icons": "^3.0.1",
-        "nouislider": "^15.1.1",
+        "@fortawesome/fontawesome-free": "^5.15.3",
+        "boxicons": "^2.0.7",
         "places.js": "^1.19.0",
-        "select2": "^4.1.0-rc.0"
+        "select2": "^4.1.0-rc.0",
+        "swiper": "^6.7.5"
     }
 }
