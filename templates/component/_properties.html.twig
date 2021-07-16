@@ -1,0 +1,41 @@
+<section class="section rent">
+    <div class="title">
+        <h1>Biens immobiliers à louer</h1>
+        <p>
+            Recherchez plus de 2000 propriétés à louer auprès des meilleurs agents du pays.
+        </p>
+    </div>
+
+    <div class="rent-center container">
+        <div class="box">
+            {% for property in properties %}
+            <div class="top">
+                <div class="overlay">
+                    {% for picture in property.pictures %}
+                    <a href="">
+                        <img src="{{ asset('uploads/' ~ picture.name) }}" alt="{{ property.title }}">
+                    </a>
+                    {% else%}
+                    <a href="">
+                        <img src="{{ asset('pictures/empty.jpg') }}" alt="{{ property.title }}">
+                    </a>
+                    {% endfor %}
+                </div>
+                <div class="pos">
+                    {% for category in property.categories %}
+                    <span>{{ category.name }}</span>
+                    {% endfor %}
+                    <span>Achetez</span>
+                </div>
+            </div>
+            <div class="bottom">
+                <p>{{ property.title}}</p>
+                <div>
+                    <span>{{ property.price | number_format(0, ',', ' ') }} €</span>
+                    <span><i class="far fa-eye"></i></span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

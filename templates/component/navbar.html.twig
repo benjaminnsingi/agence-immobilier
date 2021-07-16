@@ -1,61 +1,15 @@
 <!-- Header -->
-<header class="header" id="header">
-   <div class="navigation">
-       <div class="nav-center container d-flex">
-           <a href="#" class="logo"><h1>BN IMMO</h1></a>
-
-           <ul class="nav-list d-flex">
-               <li class="nav-item">
-                   <a href="#" class="nav-link">Accueil</a>
-               </li>
-               <li class="nav-item">
-                   <a href="#" class="nav-link">Biens</a>
-               </li>
-               <li class="nav-item">
-                   <a href="#" class="nav-link">A propos</a>
-               </li>
-               <li class="nav-item">
-                   <a href="#" class="nav-link">Content</a>
-               </li>
-               <li class="nav-item">
-                   <a href="#" class="nav-link">Connexion</a>
-               </li>
-           </ul>
-
-           <div class="hamburger">
-               <i class="bx bx-menu-alt-left"></i>
-           </div>
-       </div>
-   </div>
-
-    <div class="hero">
-        <div class="swiper-container heroslider">
-            <div class="swiper-slide">
-                <img src="{{ asset('images/pic1.jpg') }}" alt="">
-            </div>
-            <div class="swiper-slide">
-                <img src="{{ asset('images/pic2.jpg') }}" alt="">
-            </div>
-            <div class="swiper-slide">
-                <img src="{{ asset('images/pic5.jpg') }}" alt="">
-            </div>
-            <div class="swiper-slide">
-                <img src="{{ asset('images/pic6.jpg') }}" alt="">
-            </div>
-            <div class="swiper-button-next">
-                <i class="bx bx-chevron-right swiper-icon"></i>
-            </div>
-            <div class="swiper-button-prev">
-                <i class="bx bx-chevron-left swiper-icon"></i>
-            </div>
-        </div>
-    </div>
-
-    <div class="content">
-        <h1>Trouvez la maison de vos rêves</h1>
-        <div class="search">
-            <input type="text" placeholder="Type Adresse, Ville" />
-            <a href="">Recherche</a>
-        </div>
-    </div>
-</header>
+<nav>
+    <input type="checkbox" id="check">
+    <label for="check" class="checkbtn">
+        <i class="fas fa-bars"></i>
+    </label>
+    <label class="logo">BN IMMO</label>
+    <ul>
+        <li><a class="active" href="#">Accueil</a></li>
+        <li><a href="#">Biens</a></li>
+        <li><a href="#">A propos</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Connexion</a></li>
+    </ul>
+</nav>

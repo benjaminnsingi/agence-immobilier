@@ -3,8 +3,6 @@ import 'select2';
 import $ from "jquery";
 import './js/admin';
 import './js/picture';
-import './js/navbar';
-import './js/slider';
 
 // start the Stimulus application
 import '@fortawesome/fontawesome-free/css/all.css';
