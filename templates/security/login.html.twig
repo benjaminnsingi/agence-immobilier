@@ -3,41 +3,50 @@
 {% block title %}Connexion{% endblock %}
 
 {% block content %}
-<div class="container">
-    <form method="post">
-        <div class="mt-5">
+<!-- Login -->
+<div class="container-fluid">
+    <div class="login-form">
+        <form method="post">
             {% if error %}
-                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                <div class="message-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
             {{ include('component/flash_message.html.twig') }}
-        </div>
-        <h1 class="h3 mb-3 font-weight-normal">Merci de vous connecter</h1>
-        <label for="inputEmail">Email</label>
-        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-        <label for="inputPassword">Votre mot de passe</label>
-        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+            <h1>Merci de vous connecter</h1>
+            <p>
+                Vous avez déjà un compte ? Connectez-vous ou
+                <a href="{{ path('registration') }}">Inscrivez-vous</a>
+            </p>
 
-        <input type="hidden" name="_csrf_token"
-               value="{{ csrf_token('authenticate') }}"
-        >
+            <label for="email">Email</label>
+            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
 
-        {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
+            <label for="psw">Mot de passe</label>
+            <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
-        </div>
-        #}
-        <div class="forgot">
-            <a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</a>
-        </div>
-        <br>
-        <button class="btn btn-lg btn-primary" type="submit">
-            Se connecter
-        </button>
-    </form>
+            <input type="hidden" name="_csrf_token"
+                   value="{{ csrf_token('authenticate') }}"
+            >
+
+            {#
+            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+            See https://symfony.com/doc/current/security/remember_me.html
+
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" name="_remember_me"> Remember me
+                </label>
+            </div>
+            #}
+
+            <div class="forgot">
+                <a href="{{ path('app_forgot_password_request') }}" style="color: #3875d7">Mot de passe oublié</a>
+            </div>
+
+            <div class="buttons">
+                <button type="submit" class="signupbtn">Se connecter</button>
+            </div>
+        </form>
+    </div>
+    <br><br><br><br><br><br>
 </div>
 {% endblock %}

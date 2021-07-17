@@ -3,8 +3,12 @@ import 'select2';
 import $ from "jquery";
 import './js/admin';
 import './js/picture';
+import './js/slider';
+import './js/navbar';
 
 // start the Stimulus application
+import '@glidejs/glide/dist/css/glide.core.min.css';
+import '@glidejs/glide/dist/css/glide.theme.min.css';
 import '@fortawesome/fontawesome-free/css/all.css';
 import 'boxicons/css/boxicons.min.css';
 import 'select2/dist/css/select2.css'

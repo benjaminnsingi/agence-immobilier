@@ -4,12 +4,21 @@
 
 {% block content %}
 <div class="container">
-    <div class="mt-5">
-        {{ include('component/flash_message.html.twig') }}
+    <div class="login-form">
+        <div class="mt-5">
+            {{ include('component/flash_message.html.twig') }}
+        </div>
+        {% for flashError in app.flashes('verify_email_error') %}
+            <div class="message-danger" role="alert">{{ flashError }}</div>
+        {% endfor %}
+        {{ form_start(form) }}
+        {{ form_widget(form.firstname) }}
+        {{ form_widget(form.lastname) }}
+        {{ form_widget(form.email) }}
+        {{ form_widget(form.password) }}
+        {{ form_widget(form.submit) }}
+        {{ form_end(form) }}
     </div>
-    {% for flashError in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-    {% endfor %}
-      {{ form(form) }}
 </div>
+<div style="padding-top: 180px;"></div>
 {% endblock %}

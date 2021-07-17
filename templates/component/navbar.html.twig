@@ -1,15 +1,47 @@
 <!-- Header -->
-<nav>
-    <input type="checkbox" id="check">
-    <label for="check" class="checkbtn">
-        <i class="fas fa-bars"></i>
-    </label>
-    <label class="logo">BN IMMO</label>
-    <ul>
-        <li><a class="active" href="#">Accueil</a></li>
-        <li><a href="#">Biens</a></li>
-        <li><a href="#">A propos</a></li>
-        <li><a href="#">Contact</a></li>
-        <li><a href="#">Connexion</a></li>
-    </ul>
-</nav>
+<header id="home" class="header">
+    <nav class="navigation">
+        <div class="nav-center container">
+            <a href="{{ path('home') }}" class="logo">
+                <h1>BEN<span>I</span>MMO</h1>
+            </a>
+
+            <div class="nav-menu">
+                <div class="nav-top">
+                    <div class="logo">
+                        <h1>BEN<span>I</span>MMO</h1>
+                    </div>
+                    <div class="close">
+                        <i class="fas fa-times"></i>
+                    </div>
+                </div>
+
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="{{ path('home') }}" class="nav-link">Accueil</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="" class="nav-link">Biens</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="" class="nav-link">Contact</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-icons">
+                {% if app.user %}
+                    <a href="{{ path('app_logout') }}"><i class="fas fa-sign-out-alt"></i></a>
+                {% else %}
+                    <a href="{{ path('app_login') }}"><span><i class="fas fa-user"></i></span></a>
+                {% endif %}
+            </div>
+
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+</header>
