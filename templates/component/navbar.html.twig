@@ -28,6 +28,12 @@
                     <li class="nav-item">
                         <a href="" class="nav-link">Contact</a>
                     </li>
+
+                    {% if is_granted('ROLE_ADMIN')%}
+                    <li class="nav-item">
+                        <a href="{{ path('admin_user_list') }}" class="nav-link">Back office</a>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
 

@@ -1,0 +1,21 @@
+<nav>
+    <div class="sidebar-button">
+        <i class='bx bx-menu sidebarBtn'></i>
+        <span class="dashboard">Dashboard</span>
+    </div>
+    <div class="search-box">
+        <input type="text" placeholder="Search...">
+        <i class='bx bx-search' ></i>
+    </div>
+    <div class="profile-details">
+        <img
+                class="rounded-circle"
+                width="50"
+                height="50"
+                src="{{ current_user() is not null and current_user().imageProfile is not null ? '/uploads/' ~ current_user().imageProfile : '/pictures/avatar_defaut.png' }}"
+                alt=""
+        />
+        <span class="admin_name">{{ app.user.firstname }}&nbsp{{ app.user.lastname }}</span>
+        <i class='bx bx-chevron-down' ></i>
+    </div>
+</nav>
