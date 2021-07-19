@@ -3,7 +3,7 @@
 {% block title %}Property index{% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container" style="padding-top: 30px;">
     <div class="mt-5">
         {{ include('component/flash_message.html.twig') }}
     </div>
@@ -50,7 +50,7 @@
                 <td>
                     <a href="{{ path('property_show', {slug: property.slug,'id': property.id}) }}" class="btn btn-primary">voir</a>
                     <a href="{{ path('property_edit', {'id': property.id}) }}" class="btn btn-primary">modifier</a>
-                    {{ include('property/_delete_form.html.twig') }}
+                    {{ include('account/property/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
@@ -63,5 +63,6 @@
     <div class="container pagination">
         {{ knp_pagination_render(properties) }}
     </div>
+    <div style="padding-top: 37%;"></div>
 </div>
 {% endblock %}

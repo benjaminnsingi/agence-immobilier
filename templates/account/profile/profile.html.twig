@@ -3,13 +3,19 @@
 {% block title %}Mon profile{% endblock %}
 
 {% block content %}
-    <div class="container">
+    <div class="container" style="padding-top: 120px;">
         <div class="mt-5">
             {{ include('component/flash_message.html.twig') }}
         </div>
         <h1 class="text-center">Change photo de profile</h1>
        <div class="text-center">
-           {% include 'fragments/current_user.html.twig' with {'width': 350, 'height': 350 }%}
+           <img
+                   class="rounded-circle"
+                   width="20%"
+                   height="20%"
+                   src="{{ current_user() is not null and current_user().imageProfile is not null ? '/uploads/' ~ current_user().imageProfile : '/pictures/avatar_defaut.png' }}"
+                   alt=""
+           />
            <div class="container" id="search">
                {{ form_start(form)}}
                {{ form_row(form.image)}}
@@ -17,4 +23,5 @@
            </div>
        </div>
     </div>
+    <div style="padding-top: 180px;"></div>
 {% endblock %}

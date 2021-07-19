@@ -73,7 +73,7 @@
             <div class="top">
                 <div class="overlay">
                     {% for picture in property.pictures %}
-                    <a href="">
+                    <a href="{{ path('property.show', {slug: property.slug,'id': property.id}) }}">
                         <img src="{{ asset('uploads/' ~ picture.name) }}" alt="{{ property.title }}">
                     </a>
                     {% else%}
@@ -84,7 +84,7 @@
                 </div>
                 <div class="pos">
                     {% for category in property.categories %}
-                    <span>{{ category.name }}</span>
+                    <a href="{{ path('property.show', {slug: property.slug,'id': property.id}) }}"><span>{{ category.name }}</span></a>
                     {% endfor %}
                     <span>Achetez</span>
                 </div>

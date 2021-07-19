@@ -3,10 +3,26 @@
 {% block title %}Mon compte{% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container" style="padding-top: 70px;">
     <div class="mt-5">
         {{ include('component/flash_message.html.twig') }}
     </div>
-    <h1>Welcome to this page</h1>
+    <h1>Mon compte</h1>
+    Bienvenue {{ app.user.firstname }}  {{ app.user.lastname }} dans votre compte.<br> C'est dans cet espace que vous aller pouvoir gérer toutes vos informations personnelles.
+    <hr>
+    <div class="row-account">
+        <div class="col-md-3">
+            <div class="account-item text-center">
+                <a href="{{ path('property_index') }}">Mes annonces</a><br/>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="account-item text-center">
+                <a href="{{ path('app_profile_edit') }}">Mon profile</a><br/>
+            </div>
+        </div>
+    </div>
+
 </div>
+<div style="padding-top: 17%;"></div>
 {% endblock %}

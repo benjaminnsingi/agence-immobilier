@@ -3,11 +3,12 @@
 {% block title %}Edit Property{% endblock %}
 
 {% block content %}
-   <div class="container">
+   <div class="container" style="padding-top: 20px;">
        <h1>Edit Property</h1>
 
        {{ include('account/property/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
        <br>
        <a href="{{ path('property_index') }}" class="btn btn-primary">Retour à la liste</a>
    </div>
+   <div style="padding-top: 5%;"></div>
 {% endblock %}

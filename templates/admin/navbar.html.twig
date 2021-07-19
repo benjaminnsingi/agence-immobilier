@@ -8,6 +8,7 @@
         <i class='bx bx-search' ></i>
     </div>
     <div class="profile-details">
+        {% if is_granted('ROLE_ADMIN')%}
         <img
                 class="rounded-circle"
                 width="50"
@@ -15,6 +16,7 @@
                 src="{{ current_user() is not null and current_user().imageProfile is not null ? '/uploads/' ~ current_user().imageProfile : '/pictures/avatar_defaut.png' }}"
                 alt=""
         />
+        {% endif %}
         <span class="admin_name">{{ app.user.firstname }}&nbsp{{ app.user.lastname }}</span>
         <i class='bx bx-chevron-down' ></i>
     </div>

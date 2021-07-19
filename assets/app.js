@@ -1,4 +1,5 @@
-import Places from 'places.js'
+import Places from 'places.js';
+//import Map from "./js/map";
 import 'select2';
 import $ from "jquery";
 import './js/admin';
@@ -7,15 +8,19 @@ import './js/slider';
 import './js/navbar';
 
 // start the Stimulus application
+import 'bootstrap/scss/bootstrap.scss';
+
+
 import '@glidejs/glide/dist/css/glide.core.min.css';
 import '@glidejs/glide/dist/css/glide.theme.min.css';
 import '@fortawesome/fontawesome-free/css/all.css';
-import 'boxicons/css/boxicons.min.css';
-import 'select2/dist/css/select2.css'
+//import 'boxicons/css/boxicons.min.css';
+import 'select2/dist/css/select2.css';
 import './css/app.scss';
 
 $(document).ready(function() { $("select").select2(); });
 
+//Map.init();
 
 let inputAddress = document.querySelector('#property_address')
 if (inputAddress !== null) {

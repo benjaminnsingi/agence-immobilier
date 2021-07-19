@@ -21,14 +21,8 @@ class ProfileController extends AbstractController
         $this->messageService = $messageService;
     }
 
-    #[Route('', name: 'app_profile')]
-    public function index(): Response
-    {
-        return $this->render('profile/index.html.twig');
-    }
-
-    #[Route('/edit', name: 'app_profile_edit', methods: ["GET|POST"])]
-    public function edit(Request $request)
+    #[Route('', name: 'app_profile_edit', methods: ["GET|POST"])]
+    public function profile(Request $request): Response
     {
         /** @var User $user */
         $user = $this->getUser();
