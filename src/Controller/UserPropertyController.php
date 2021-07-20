@@ -93,14 +93,6 @@ class UserPropertyController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'property_show', methods: ['GET'])]
-    public function show(Property $property): Response
-    {
-        return $this->render('account/property/show.html.twig', [
-            'property' => $property,
-        ]);
-    }
-
     #[Route('/{id}/edit', name: 'property_edit', methods: ['GET', 'POST'])]
     public function update(Request $request, Property $property, ManagePicturesService $managePicturesService): Response
     {

@@ -1,5 +1,5 @@
 import Places from 'places.js';
-//import Map from "./js/map";
+import Map from "./js/map";
 import 'select2';
 import $ from "jquery";
 import './js/admin';
@@ -20,7 +20,7 @@ import './css/app.scss';
 
 $(document).ready(function() { $("select").select2(); });
 
-//Map.init();
+Map.init();
 
 let inputAddress = document.querySelector('#property_address')
 if (inputAddress !== null) {

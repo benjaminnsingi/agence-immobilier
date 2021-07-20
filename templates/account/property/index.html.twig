@@ -48,7 +48,6 @@
                 <td>{{ property.price }}</td>
                 <td>{{ property.heatType }}</td>
                 <td>
-                    <a href="{{ path('property_show', {slug: property.slug,'id': property.id}) }}" class="btn btn-primary">voir</a>
                     <a href="{{ path('property_edit', {'id': property.id}) }}" class="btn btn-primary">modifier</a>
                     {{ include('account/property/_delete_form.html.twig') }}
                 </td>

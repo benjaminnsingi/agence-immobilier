@@ -68,26 +68,24 @@
     </div>
 
     <div class="rent-center container">
+        {% for property in properties %}
         <div class="box">
-            {% for property in properties %}
             <div class="top">
-                <div class="overlay">
-                    {% for picture in property.pictures %}
-                    <a href="{{ path('property.show', {slug: property.slug,'id': property.id}) }}">
-                        <img src="{{ asset('uploads/' ~ picture.name) }}" alt="{{ property.title }}">
-                    </a>
-                    {% else%}
-                    <a href="">
-                        <img src="{{ asset('pictures/empty.jpg') }}" alt="{{ property.title }}">
-                    </a>
-                    {% endfor %}
-                </div>
-                <div class="pos">
-                    {% for category in property.categories %}
-                    <a href="{{ path('property.show', {slug: property.slug,'id': property.id}) }}"><span>{{ category.name }}</span></a>
-                    {% endfor %}
-                    <span>Achetez</span>
-                </div>
+                <a href="{{ path('property.show',  {slug: property.slug,'id': property.id}) }}">
+                    <div class="overlay">
+                        {% for picture in property.pictures %}
+                            <img src="{{ asset('uploads/' ~ picture.name) }}" alt="{{ property.title }}">
+                        {% else%}
+                            <img src="{{ asset('pictures/empty.jpg') }}" alt="{{ property.title }}">
+                        {% endfor %}
+                    </div>
+                    <div class="pos">
+                        {% for category in property.categories %}
+                            <span>{{ category.name }}</span>
+                        {% endfor %}
+                        <span>Achetez</span>
+                    </div>
+                </a>
             </div>
             <div class="bottom">
                 <p>{{ property.title}}</p>
@@ -96,7 +94,7 @@
                     <span><i class="far fa-eye"></i></span>
                 </div>
             </div>
-            {% endfor %}
         </div>
+        {% endfor %}
     </div>
 </section>

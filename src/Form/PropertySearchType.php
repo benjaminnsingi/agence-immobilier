@@ -25,11 +25,28 @@ class PropertySearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('minSurface', HiddenType::class, [
+                'required' => false,
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Surface minimale'
+                ]
+            ])
+            ->add('maxPrice', HiddenType::class, [
+                'required' => false,
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Budget max'
+                ]
+            ])
             ->add('address', null, [
                 'label' => false,
                 'required' => false,
             ])
-        ;
+            ->add('distance', HiddenType::class)
+            ->add('lat', HiddenType::class)
+            ->add('lng', HiddenType::class)
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
