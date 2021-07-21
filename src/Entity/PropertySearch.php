@@ -1,47 +1,40 @@
 <?php
-
-
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-
 use Symfony\Component\Validator\Constraints as Assert;
 
-class PropertySearch
-{
+class PropertySearch {
 
-     private int|null $maxPrice = null;
+    private ?int $maxPrice = null;
 
-     /**
-     * @var int|null @Assert\Range(min=10, max=400)
+    /**
+     * @Assert\Range(min=10, max=400)
      */
-     private int|null $minSurface = null;
+    private ?int $minSurface = null;
 
-     private ArrayCollection $options;
+    private ArrayCollection $options;
 
-     private ?int $distance = null;
+    private ?int $distance = null;
 
     private ?float $lat = null;
 
-    private ?float $lng = null;
-
     private ?string $address = null;
+
+    private ?float $lng = null;
 
     public function __construct()
     {
         $this->options = new ArrayCollection();
     }
 
-    /**
-     * @return int|null
-     */
     public function getMaxPrice(): ?int
     {
         return $this->maxPrice;
     }
 
     /**
-     * @param int $maxPrice
+     * @param int|$maxPrice
      * @return PropertySearch
      */
     public function setMaxPrice(int $maxPrice): PropertySearch
@@ -50,9 +43,6 @@ class PropertySearch
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
     public function getMinSurface(): ?int
     {
         return $this->minSurface;
@@ -84,9 +74,6 @@ class PropertySearch
         $this->options = $options;
     }
 
-    /**
-     * @return int|null
-     */
     public function getDistance(): ?int
     {
         return $this->distance;
@@ -102,55 +89,51 @@ class PropertySearch
         return $this;
     }
 
-    /**
-     * @return float|null
-     */
     public function getLat(): ?float
     {
         return $this->lat;
     }
 
     /**
-     * @param float|null $lat
+     * @param float $lat
      * @return PropertySearch
      */
-    public function setLat(?float $lat): PropertySearch
+    public function setLat(float $lat): PropertySearch
     {
         $this->lat = $lat;
         return $this;
     }
 
-    /**
-     * @return float|null
-     */
     public function getLng(): ?float
     {
         return $this->lng;
     }
 
     /**
-     * @param float|null $lng
+     * @param float $lng
      * @return PropertySearch
      */
-    public function setLng(?float $lng): PropertySearch
+    public function setLng(float $lng): PropertySearch
     {
         $this->lng = $lng;
         return $this;
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getAddress(): ?string
+    public function getAddress(): string
     {
         return $this->address;
     }
 
     /**
-     * @param string|null $address
+     * @param string $address
+     * @return PropertySearch
      */
-    public function setAddress(?string $address): void
+    public function setAddress(string $address): PropertySearch
     {
         $this->address = $address;
+        return $this;
     }
 }

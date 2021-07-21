@@ -129,7 +129,9 @@ class Property
      */
     private Collection $pictures;
 
-    #[Pure] public function __construct()
+    private ?Picture $picture = null;
+
+    public function __construct()
     {
         $this->options = new ArrayCollection();
         $this->pictures = new ArrayCollection();
@@ -422,6 +424,17 @@ class Property
             }
         }
 
+        return $this;
+    }
+
+    public function getPicture(): ?Picture
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?Picture $picture): self
+    {
+        $this->picture = $picture;
         return $this;
     }
 }

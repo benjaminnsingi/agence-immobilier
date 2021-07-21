@@ -5,18 +5,31 @@
 {% block content %}
    <section class="section rent">
       <div class="container">
+          {{ form_start(form) }}
           <div class="row">
-              {{ form_start(form) }}
-              <div class="col">
+              <div class="col-md-3">
+                  {{ form_row(form.minSurface) }}
+              </div>
+              <div class="col-md-3">
+                  {{ form_row(form.maxPrice) }}
+              </div>
+              <div class="col-md-3">
+                  {{ form_row(form.options) }}
+              </div>
+              <div class="col-md-3">
                   {{ form_row(form.address, {id: 'search_address'}) }}
               </div>
-              <div class="col">
+              <div class="col-md-2">
+                  {{ form_row(form.distance) }}
+              </div>
+              <br><br>
+              <div class="text-center">
                   <div class="form-group">
                       <button class="btn btn-primary">Rechercher</button>
                   </div>
               </div>
-              {{ form_end(form) }}
           </div>
+          {{ form_end(form) }}
       </div>
       <br>
       <div class="rent-center container">
@@ -41,13 +54,17 @@
                </div>
                <div class="bottom">
                   <p>{{ property.title}}</p>
+                   <p class="text-primary" style="font-size: 1.4rem;">{{ property.city}}&nbsp;({{ property.PostalCode }})</p>
                   <div>
                      <span>{{ property.price | number_format(0, ',', ' ') }} €</span>
                      <span><i class="far fa-eye"></i></span>
                   </div>
                </div>
             </div>
+         {% else%}
+          <p>Aucune recherche trouvée</p>
          {% endfor %}
       </div>
+       <div style="padding-top: 12%"></div>
    </section>
 {% endblock %}

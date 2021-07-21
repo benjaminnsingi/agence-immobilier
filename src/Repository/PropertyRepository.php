@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Data\SearchData;
+use App\Entity\Picture;
 use App\Entity\Property;
 use App\Entity\PropertySearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -27,13 +28,18 @@ class PropertyRepository extends ServiceEntityRepository
         $this->paginator = $paginator;
     }
 
+    /**
+     * @param PropertySearch $search
+     * @param int $page
+     * @return PaginationInterface
+     */
     public function paginateAllVisible(PropertySearch $search, int $page): PaginationInterface
     {
         $query = $this->findVisibleQuery();
 
         if ($search->getMaxPrice()) {
             $query = $query
-                ->andWhere('p.price <= : :maxprice')
+                ->andWhere('p.price <= :maxprice')
                 ->setParameter('maxprice', $search->getMaxPrice());
         }
 
@@ -86,6 +92,20 @@ class PropertyRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('p')
             ->where('p.sold = false');
+    }
+
+
+    private function hydratePicture($properties) {
+        if (method_exists($properties, 'getItems')) {
+            $properties = $properties->getItems();
+        }
+        $pictures = $this->getEntityManager()->getRepository(Picture::class)->findForProperties($properties);
+        foreach($properties as $property) {
+            /** @var $property Property */
+            if($pictures->containsKey($property->getId())) {
+                $property->setPicture($pictures->get($property->getId()));
+            }
+        }
     }
 
     /**
