@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Header;
 use App\Entity\PropertySearch;
 use App\Form\PropertySearchType;
 use App\Repository\PropertyRepository;
@@ -30,9 +31,11 @@ class HomeController extends AbstractController
         $form = $this->createForm(PropertySearchType::class, $search);
         $form->handleRequest($request);
         $properties = $propertyRepository->findLatest();
+        $headers = $this->entityManager->getRepository(Header::class)->findAll();
         return $this->render('pages/home.html.twig', [
             'current_menu' => 'properties',
             'properties' => $properties,
+            'headers' => $headers,
             'form'       => $form->createView()
         ]);
     }

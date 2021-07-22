@@ -4,10 +4,14 @@
 namespace App\Controller;
 
 
+use App\Entity\Contact;
 use App\Entity\Property;
 use App\Entity\PropertySearch;
+use App\Form\ContactNotification;
+use App\Form\ContactType;
 use App\Form\PropertySearchType;
 use App\Repository\PropertyRepository;
+use App\Services\MessageService;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,10 +25,13 @@ class PropertyController extends AbstractController
 
     private PropertyRepository $repository;
 
-    public function __construct(EntityManagerInterface $entityManager, PropertyRepository $repository)
+    private MessageService $messageService;
+
+    public function __construct(EntityManagerInterface $entityManager, PropertyRepository $repository, MessageService $service)
     {
         $this->entityManager = $entityManager;
         $this->repository = $repository;
+        $this->messageService = $service;
     }
 
     #[Route("/biens", name: "property.index", methods: ['GET'])]
@@ -44,7 +51,7 @@ class PropertyController extends AbstractController
     /**
      * @Route("/biens/{slug}-{id}", name="property.show", requirements={"slug": "[a-z0-9\-]*"})
      */
-    public function show(Property $property, string $slug): Response
+    public function show(Property $property, string $slug, Request $request, ContactNotification $notification): Response
     {
         if ($property->getSlug() !== $slug) {
             return $this->redirectToRoute('property.show', [
@@ -53,9 +60,24 @@ class PropertyController extends AbstractController
             ], 301);
         }
 
+        $contact = new Contact();
+        $contact->setProperty($property);
+        $form = $this->createForm(ContactType::class, $contact);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $notification->notify($contact);
+            $this->messageService->addSuccess('Votre email a bien été envoyé');
+            return $this->redirectToRoute('property.show', [
+                'id'   => $property->getId(),
+                'slug' => $property->getSlug()
+            ]);
+        }
+
         return $this->render('pages/show.html.twig', [
             'property'     => $property,
             'current_menu' => 'properties',
+            'form' => $form->createView()
         ]);
     }
 }
