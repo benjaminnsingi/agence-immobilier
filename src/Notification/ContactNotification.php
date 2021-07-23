@@ -1,9 +1,5 @@
 <?php
-
-
-namespace App\Form;
-
-
+namespace App\Notification;
 use App\Entity\Contact;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;

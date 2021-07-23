@@ -52,10 +52,12 @@ class Contact
 
     /**
      * @param string|null $firstname
+     * @return Contact
      */
-    public function setFirstname(?string $firstname): void
+    public function setFirstname(?string $firstname): Contact
     {
         $this->firstname = $firstname;
+        return $this;
     }
 
     /**
@@ -68,10 +70,12 @@ class Contact
 
     /**
      * @param string|null $lastname
+     * @return Contact
      */
-    public function setLastname(?string $lastname): void
+    public function setLastname(?string $lastname): Contact
     {
         $this->lastname = $lastname;
+        return $this;
     }
 
     /**
@@ -84,10 +88,12 @@ class Contact
 
     /**
      * @param string|null $phone
+     * @return Contact
      */
-    public function setPhone(?string $phone): void
+    public function setPhone(?string $phone): Contact
     {
         $this->phone = $phone;
+        return $this;
     }
 
     /**
@@ -100,10 +106,12 @@ class Contact
 
     /**
      * @param string|null $email
+     * @return Contact
      */
-    public function setEmail(?string $email): void
+    public function setEmail(?string $email): Contact
     {
         $this->email = $email;
+        return $this;
     }
 
     /**
@@ -116,10 +124,12 @@ class Contact
 
     /**
      * @param string|null $message
+     * @return Contact
      */
-    public function setMessage(?string $message): void
+    public function setMessage(?string $message): Contact
     {
         $this->message = $message;
+        return $this;
     }
 
     /**
@@ -132,9 +142,11 @@ class Contact
 
     /**
      * @param string|null $property
+     * @return Contact
      */
-    public function setProperty(?string $property): void
+    public function setProperty(?string $property): Contact
     {
         $this->property = $property;
+        return $this;
     }
 }

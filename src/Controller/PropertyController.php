@@ -7,9 +7,9 @@ namespace App\Controller;
 use App\Entity\Contact;
 use App\Entity\Property;
 use App\Entity\PropertySearch;
-use App\Form\ContactNotification;
 use App\Form\ContactType;
 use App\Form\PropertySearchType;
+use App\Notification\ContactNotification;
 use App\Repository\PropertyRepository;
 use App\Services\MessageService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -61,7 +61,7 @@ class PropertyController extends AbstractController
         }
 
         $contact = new Contact();
-        $contact->setProperty($property);
+        $contact->setProperty((string)$property);
         $form = $this->createForm(ContactType::class, $contact);
         $form->handleRequest($request);
 
